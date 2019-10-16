@@ -62,8 +62,6 @@ class BannerView(private val context: Context, id: Int, messenger: BinaryMesseng
 
     private fun load(call: MethodCall, result: MethodChannel.Result) {
         val arguments: Map<String, Any> = call.arguments()
-
-        val isDevelop = arguments.get("isDevelop") as? Boolean ?: false
         val adUnitId = arguments.get("adUnitId") as String
         val adSizesParameter =
             arguments.get("adSizes") as? List<*>
@@ -97,12 +95,7 @@ class BannerView(private val context: Context, id: Int, messenger: BinaryMesseng
             }
         }
         this.publisherAdView = PublisherAdView(context)
-
-        if (isDevelop) {
-            publisherAdView?.adUnitId = "/6499/example/banner"
-        } else {
-            publisherAdView?.adUnitId = adUnitId
-        }
+        publisherAdView?.adUnitId = adUnitId
 
         builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
         val testDevices = arguments["testDevices"] as? List<*>

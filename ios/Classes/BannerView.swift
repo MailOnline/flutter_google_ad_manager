@@ -33,38 +33,27 @@ class BannerView: NSObject, FlutterPlatformView {
 
     private func load(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let argument = call.arguments as! Dictionary<String, Any>
-        let isDevelop = argument["isDevelop"] as? Bool ?? false
         let testDevices = argument["testDevices"] as? [String]
         let adSizesArgument = argument["adSizes"] as! [String]
         let widthsArgument = argument["widths"] as! [Double]
         let heightsArgument = argument["heights"] as! [Double]
         let isPortrait = argument["isPortrait"] as? Bool ?? true
         let customTargeting = argument["customTargeting"] as? [String: Any]
-
         let adSize = convertToAdSizes(adSizesArgument, widths: widthsArgument, heights: heightsArgument, isPortrait: isPortrait, result: result).first!
-
         let adUnitId = argument["adUnitId"] as! String
-
         let bannerView = DFPBannerView(adSize: adSize)
         let request = DFPRequest()
-        if isDevelop {
-            bannerView.adUnitID = "/6499/example/banner"
-        } else {
-            bannerView.adUnitID = adUnitId
-        }
+        bannerView.adUnitID = adUnitId
 
         if let testDevices = testDevices {
             request.testDevices = testDevices
         }
 
         bannerView.delegate = self
-
         bannerView.rootViewController = UIApplication.shared.delegate!.window!!.rootViewController!
 
         addBannerViewToView(bannerView)
-
         request.customTargeting = customTargeting
-        
         bannerView.load(request)
         result(nil)
     }

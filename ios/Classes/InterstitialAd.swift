@@ -28,14 +28,8 @@ class InterstitialAd: SwiftFlutterGoogleAdManagerPlugin {
 
     private func load(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let argument = call.arguments as! Dictionary<String, Any>
-        let isDevelop = argument["isDevelop"] as? Bool ?? false
-
-        if isDevelop {
-            interstitialAd = DFPInterstitial(adUnitID: "/6499/example/interstitial")
-        } else {
-            let adUnitId = argument["adUnitId"] as! String
-            interstitialAd = DFPInterstitial(adUnitID: adUnitId)
-        }
+        let adUnitId = argument["adUnitId"] as! String
+        interstitialAd = DFPInterstitial(adUnitID: adUnitId)
         interstitialAd!.delegate = self
 
         let request = DFPRequest()

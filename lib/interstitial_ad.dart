@@ -3,10 +3,8 @@ import 'package:flutter/foundation.dart';
 
 /// Class to display interstitial ads of Google Ad Manger.
 class DFPInterstitialAd {
-  static const MethodChannel _channel =
-      const MethodChannel('plugins.ko2ic.com/google_ad_manager/interstitial');
+  static const MethodChannel _channel = const MethodChannel('plugins.ko2ic.com/google_ad_manager/interstitial');
 
-  final bool isDevelop;
   final String adUnitId;
   final void Function() onAdLoaded;
   final void Function(int errorCode) onAdFailedToLoad;
@@ -15,7 +13,6 @@ class DFPInterstitialAd {
   final void Function() onAdLeftApplication;
 
   DFPInterstitialAd({
-    @required this.isDevelop,
     @required this.adUnitId,
     this.onAdLoaded,
     this.onAdFailedToLoad,
@@ -51,7 +48,6 @@ class DFPInterstitialAd {
   /// Load beforehand before displaying.
   Future<void> load() async {
     await _channel.invokeMethod('load', <String, dynamic>{
-      'isDevelop': isDevelop,
       'adUnitId': adUnitId,
     });
   }

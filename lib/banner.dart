@@ -9,13 +9,9 @@ typedef void _DFPBannerViewCreatedCallback(DFPBannerViewController controller);
 
 /// Banner Widget of Google Ad Manger.
 class DFPBanner extends StatelessWidget {
-  /// If true, develop mode.
-  /// It is that adUnitId for test will be used.
-  final bool isDevelop;
 
   /// In the case of the test mode, the class that holds the test device id for display on the real device.
   final TestDevices testDevices;
-
   final String adUnitId;
   final DFPAdSize adSize;
   final Map<String, dynamic> customTargeting;
@@ -30,7 +26,6 @@ class DFPBanner extends StatelessWidget {
   final void Function() onAdLeftApplication;
 
   DFPBanner({
-    @required this.isDevelop,
     this.testDevices,
     @required this.adUnitId,
     @required this.adSize,
@@ -75,7 +70,6 @@ class DFPBanner extends StatelessWidget {
       width: width,
       height: height,
       child: _DFPBannerView(
-        isDevelop: isDevelop,
         testDevices: testDevices,
         adUnitId: adUnitId,
         adSize: adSize,
@@ -99,7 +93,6 @@ class DFPBanner extends StatelessWidget {
 }
 
 class _DFPBannerView extends StatefulWidget {
-  final bool isDevelop;
   final TestDevices testDevices;
   final String adUnitId;
   final DFPAdSize adSize;
@@ -114,7 +107,6 @@ class _DFPBannerView extends StatefulWidget {
   final Map<String, dynamic> customTargeting;
 
   _DFPBannerView({
-    @required this.isDevelop,
     this.testDevices,
     @required this.adUnitId,
     @required this.adSize,
@@ -157,7 +149,6 @@ class _DFPBannerViewState extends State<_DFPBannerView> {
       return;
     }
     widget.onPlatformCompleted(DFPBannerViewController._internal(
-      isDevelop: widget.isDevelop,
       testDevices: widget.testDevices,
       adUnitId: widget.adUnitId,
       adSize: widget.adSize,
@@ -175,7 +166,6 @@ class _DFPBannerViewState extends State<_DFPBannerView> {
 }
 
 class DFPBannerViewController {
-  final bool isDevelop;
   final TestDevices testDevices;
   final String adUnitId;
   final DFPAdSize adSize;
@@ -189,7 +179,6 @@ class DFPBannerViewController {
   final Map<String, dynamic> customTargeting;
 
   DFPBannerViewController._internal({
-    @required this.isDevelop,
     this.testDevices,
     @required this.adUnitId,
     @required this.adSize,
@@ -238,7 +227,6 @@ class DFPBannerViewController {
 
   Future<void> _load() {
     return _channel.invokeMethod('load', {
-      "isDevelop": this.isDevelop,
       "testDevices": this.testDevices?.values,
       "adUnitId": this.adUnitId,
       "adSizes": [this.adSize.toString()],

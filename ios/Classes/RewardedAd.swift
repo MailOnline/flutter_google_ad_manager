@@ -32,17 +32,10 @@ class RewardedAd: SwiftFlutterGoogleAdManagerPlugin {
 
     private func load(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let argument = call.arguments as! Dictionary<String, Any>
-        let isDevelop = argument["isDevelop"] as? Bool ?? false
-
         GADRewardBasedVideoAd.sharedInstance().delegate = self
-        if isDevelop {
-            GADRewardBasedVideoAd.sharedInstance().load(DFPRequest(),
-                                                        withAdUnitID: "/6499/example/rewarded-video")
-        } else {
-            let adUnitId = argument["adUnitId"] as! String
-            GADRewardBasedVideoAd.sharedInstance().load(DFPRequest(),
-                                                        withAdUnitID: adUnitId)
-        }
+        let adUnitId = argument["adUnitId"] as! String
+        GADRewardBasedVideoAd.sharedInstance().load(DFPRequest(), withAdUnitID: adUnitId)
+        
         result(nil)
     }
 

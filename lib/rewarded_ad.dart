@@ -6,7 +6,6 @@ class DFPRewardedAd {
   static const MethodChannel _channel =
       const MethodChannel('plugins.ko2ic.com/google_ad_manager/rewarded');
 
-  final bool isDevelop;
   final String adUnitId;
   final void Function() onAdLoaded;
   final void Function(int errorCode) onAdFailedToLoad;
@@ -18,7 +17,6 @@ class DFPRewardedAd {
   final void Function() onVideoCompleted;
 
   DFPRewardedAd({
-    @required this.isDevelop,
     @required this.adUnitId,
     this.onAdLoaded,
     this.onAdFailedToLoad,
@@ -68,7 +66,6 @@ class DFPRewardedAd {
   /// Load beforehand before displaying.
   Future<void> load() async {
     await _channel.invokeMethod('load', <String, dynamic>{
-      'isDevelop': isDevelop,
       'adUnitId': adUnitId,
     });
   }

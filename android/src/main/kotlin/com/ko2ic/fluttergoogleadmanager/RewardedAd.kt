@@ -29,13 +29,7 @@ class RewardedAd(private val registrar: PluginRegistry.Registrar, private val ch
     }
 
     private fun load(call: MethodCall, result: MethodChannel.Result) {
-        val isDevelop = call.argument<Boolean>("isDevelop") ?: false
-
-        if (isDevelop) {
-            rewardedAd.loadAd("/6499/example/rewarded-video", PublisherAdRequest.Builder().build())
-        } else {
-            rewardedAd.loadAd(call.argument<String>("adUnitId"), PublisherAdRequest.Builder().build())
-        }
+        rewardedAd.loadAd(call.argument<String>("adUnitId"), PublisherAdRequest.Builder().build())
         result.success(null)
     }
 

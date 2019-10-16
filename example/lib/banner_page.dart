@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_google_ad_manager/flutter_google_ad_manager.dart';
-
-import 'my_test_devices.dart';
+import 'package:flutter_google_ad_manager_example/constants.dart' as constants;
+import 'package:flutter_google_ad_manager_example/my_test_devices.dart';
 
 class BannerPage extends StatefulWidget {
   BannerPage({Key key, @required this.size}) : super(key: key);
@@ -49,9 +49,8 @@ class _BannerPageState extends State<BannerPage> {
               margin: EdgeInsets.symmetric(vertical: 16.0),
               decoration: BoxDecoration(border: Border.all(color: Theme.of(context).primaryColor)),
               child: DFPBanner(
-                isDevelop: true,
                 testDevices: MyTestDevices(),
-                adUnitId: '/XXXXXXXXX/XXXXXXXXX',
+                adUnitId: constants.appAdUnitId,
                 adSize: widget.size,
                 onAdViewCreated: (controller) {
                   _bannerViewController = controller;

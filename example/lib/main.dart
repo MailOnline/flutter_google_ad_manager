@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_google_ad_manager/flutter_google_ad_manager.dart';
+import 'package:flutter_google_ad_manager_example/constants.dart' as constants;
+
+import 'my_test_devices.dart';
 
 import 'banner_page.dart';
 
@@ -38,8 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
 
     _interstitialAd = DFPInterstitialAd(
-      isDevelop: true,
-      adUnitId: "XXXXXXXX",
+      adUnitId: constants.appAdUnitId,
       onAdLoaded: () {
         print('interstitialAd onAdLoaded');
       },
@@ -60,8 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _interstitialAd.load();
 
     _rewardedAd = DFPRewardedAd(
-      isDevelop: true,
-      adUnitId: "XXXXXXX",
+      adUnitId: constants.repoAdUnitId,
       onAdLoaded: () {
         print('rewardedAd onAdLoaded');
       },
@@ -205,62 +206,57 @@ class _MyHomePageState extends State<MyHomePage> {
                   _rewardedAd.show();
                 },
               ),
-              /*ListView.builder(
-              padding: EdgeInsets.all(20.0),
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int index) {
-                if (index != 0 && index % 4 == 0) {
-                  return Column(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(top: 16, bottom: 16.0),
-                        child: DFPBanner(
-                          isDevelop: true,
-                          testDevices: MyTestDevices(),
-                          adUnitId: '/XXXXXXXXX/XXXXXXXXX',
-                          adSize: DFPAdSize.BANNER,
-                          onAdLoaded: () {
-                            print('Banner onAdLoaded');
-                          },
-                          onAdFailedToLoad: (errorCode) {
-                            print('Banner onAdFailedToLoad: errorCode:$errorCode');
-                          },
-                          onAdOpened: () {
-                            print('Banner onAdOpened');
-                          },
-                          onAdClosed: () {
-                            print('Banner onAdClosed');
-                          },
-                          onAdLeftApplication: () {
-                            print('Banner onAdLeftApplication');
-                          },
-                        ),
-                      ),
-                    ],
-                  );
-                }
-                return SizedBox(
-                  height: 100.0,
-                  child: Card(
-                    child: Center(
-                      child: Text('$index'),
-                    ),
-                  ),
-                );
-              },
-            ),*/
+              //_showDFPBanner(),
             ],
           ),
         ),
       ),
-      /*floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await _rewardedAd.show();
-          //await interstitialAd.show();
-        },
-        tooltip: '?',
-        child: Icon(Icons.add),
-      ),*/
+    );
+  }
+
+  Widget _showDFPBanner() {
+    return ListView.builder(
+      padding: EdgeInsets.all(20.0),
+      itemCount: 10,
+      itemBuilder: (BuildContext context, int index) {
+        if (index != 0 && index % 4 == 0) {
+          return Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 16, bottom: 16.0),
+                child: DFPBanner(
+                  testDevices: MyTestDevices(),
+                  adUnitId: constants.appAdUnitId,
+                  adSize: DFPAdSize.BANNER,
+                  onAdLoaded: () {
+                    print('Banner onAdLoaded');
+                  },
+                  onAdFailedToLoad: (errorCode) {
+                    print('Banner onAdFailedToLoad: errorCode:$errorCode');
+                  },
+                  onAdOpened: () {
+                    print('Banner onAdOpened');
+                  },
+                  onAdClosed: () {
+                    print('Banner onAdClosed');
+                  },
+                  onAdLeftApplication: () {
+                    print('Banner onAdLeftApplication');
+                  },
+                ),
+              ),
+            ],
+          );
+        }
+        return SizedBox(
+          height: 100.0,
+          child: Card(
+            child: Center(
+              child: Text('$index'),
+            ),
+          ),
+        );
+      },
     );
   }
 

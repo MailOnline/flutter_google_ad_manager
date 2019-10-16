@@ -22,14 +22,8 @@ class InterstitialAd(registrar: PluginRegistry.Registrar, private val channel: M
     }
 
     private fun load(call: MethodCall, result: MethodChannel.Result) {
-        val isDevelop = call.argument<Boolean>("isDevelop") ?: false
-
         if (interstitialAd.adUnitId.isNullOrEmpty()) {
-            if (isDevelop) {
-                interstitialAd.adUnitId = "/6499/example/interstitial"
-            } else {
-                interstitialAd.adUnitId = call.argument<String>("adUnitId")
-            }
+            interstitialAd.adUnitId = call.argument<String>("adUnitId")
             interstitialAd.adListener = InterstitialAdListener(channel)
         }
         val adRequest = PublisherAdRequest.Builder().build()
